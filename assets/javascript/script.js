@@ -1,71 +1,67 @@
+/*create an array of topics. create a button for each item in the array. user clicks the buttons and 10 gif appear for that topic. user can keep clicking buttons and gifs aill preappend the list. 
+
+user can also enter in new topics that will be added to the array for a button to be made.
+
+user can play and pause the gif*/
+
+
 $(document).ready(function() {
 
 
 
-// ----- Game Variables ----- //
 
-// Initial array of animals
+// Initial array of water sports
 var topics = ['surfing', 'free diving', 'longboarding', 'spear fishing', 'snorkeling'];
 
-// ----- Helper Functions ----- //
 
-// renderButtons will display the animal buttons for all animals within the
-// topics array.
+// renderButtons will display the sport buttons for all sports within the topics array.
 function renderButtons() {
-  // Empty the buttons panel before redrawing it
-  $("#buttonPanel").empty();
+  $("#buttonPanel").empty(); //if i dont have this the array doubles each time i add a button
 
-  // Loop through the array of animals
+  // Loop through the array of sports
   for (var i = 0; i < topics.length; i++) {
-    // Dynamicaly generate a button for each animal in the array
+    // generate a button for each sport in the array
     var button = $("<button>");
     button.addClass("btn btn-info");
     button.attr("data-sport", topics[i]);
     button.text(topics[i]);
 
-    // Add the button to the HTML
+    // Add the button to the HTML. use the append so it adds to the END of the list
     $("#buttonPanel").append(button);
   }
 }
 
-// ----- Event Handlers ----- //
 
-// An event handler for the user form to add additional animals to the array
+// A function? for the user  to add additional sports to the array
 $("#add-sport").on("click", function(event) {
   event.preventDefault();
 
-  // Get the input from the textbox
   var sport = $("#sport-input").val();  //.trim()
 
-  // The animal from the textbox is then added to our topics array
   topics.push(sport);
   $("#sport-input").val("");
 
-  // Redraw the animal buttons
   renderButtons();
 });
 
-// fetchSportGif will fetch animal Gifs with the Giphy API
-function fetchSportGif() {
+// getSportGif will fetch sport Gifs from the Giphy API
+function getSportGif() {
 
-  $('.userGuide').hide();
+  $('.userGuide').hide(); //this hides the welcome message to a user when the click a button
 
 
-  // Get the animal name from the button clicked
   var sportName = $(this).attr("data-sport");
-  var sportStr = sportName.split(" ").join("+");
 
-  // Construct the Giphy URL
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sportStr + 
+  // build the Giphy URL
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sportName + 
                  "&rating=pg-13&limit=10&api_key=dc6zaTOxFJmzC";
 
-  // Make the AJAX call to the Giphy API
+  //  AJAX function to link to the Giphy API
   $.ajax({
     method: "GET",
     url: queryURL,
   })
   .done(function( result ) {
-    // Get the results array
     var dataArray = result.data;
 
     // Create and display div elements for each of the returned Gifs
@@ -78,9 +74,9 @@ function fetchSportGif() {
       newDiv.append(newRating);
 
       var newImg = $("<img>");
-      newImg.attr("src", dataArray[i].images.fixed_height_still.url);
-      newImg.attr("data-still", dataArray[i].images.fixed_height_still.url);
-      newImg.attr("data-animate", dataArray[i].images.fixed_height.url);
+      newImg.attr("src", dataArray[i].images.fixed_height_still.url); //start on pause state
+      newImg.attr("data-still", dataArray[i].images.fixed_height_still.url); //paused state
+      newImg.attr("data-animate", dataArray[i].images.fixed_height.url); //play state
       newImg.attr("data-state", "still");
       newDiv.append(newImg);
 
@@ -90,12 +86,11 @@ function fetchSportGif() {
   });
 }
 
-// animateSportGif will animate a still Gif and stop a moving Gif
+// animateSportGif will play a still Gif and stop a moving Gif
 function animateSportGif() {
-  // The image state will be either "still" or "animated"
   var state = $(this).find("img").attr("data-state");
 
-  // Make the Gif either animated or still depending on the "data-state" value
+
   if (state === "still") {
     $(this).find("img").attr("src", $(this).find("img").attr("data-animate"));
     $(this).find("img").attr("data-state", "animate");
@@ -105,15 +100,15 @@ function animateSportGif() {
   }
 }
 
-// Render the initial animal buttons when the HTML has finished loading
+
 $(document).ready(function() {
   renderButtons();
 });
 
-// An event handler for the animal buttons to fetch appropriate Gifs
-$(document).on("click", ".btn", fetchSportGif);
+// now event for sport buttons to fetch appropriate Gifs
+$(document).on("click", ".btn", getSportGif);
 
-// Add an event handler for the animal Gifs to make the image animate and stop
+// event  for the sport Gifs to make the image animate and stop
 $(document).on("click", ".sportGif", animateSportGif);
 
 });

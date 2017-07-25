@@ -1,4 +1,10 @@
-
+.userGuide {
+    background-color: ;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 900;
+    color: #efefef;
+    font-size: 52px;
+}
 
 .container {
   padding: 20px;
@@ -30,18 +36,6 @@
   padding: 0px;
 }
 
-#add-sport {
-  background-color: orange;
-  border: none;
-  margin: 5px;
-}
-
-#add-sport:hover {
-    color: #fff;
-    background-color: #ffc82b;
-    border-color: #ffc82b;
-}
-
 .form-control {
   width: 200px;
   margin: 5px;
@@ -55,6 +49,17 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(162, 162, 162, 0.6);
 }
 
+#add-sport {
+  background-color: orange;
+  border: none;
+  margin: 5px;
+}
+
+#add-sport:hover {
+    color: #fff;
+    background-color: #ffc82b;
+    border-color: #ffc82b;
+}
 
 .btn-success:focus {
     color: #fff;
@@ -73,10 +78,12 @@
   background-color: ;
 }
 
-.sportGif:hover, .sportGid:active, .sportGif:focus {
-    /*  background-color: #bdd9c7;*/  
+img:hover, img:active, img:focus {
+/*      background-color: #bdd9c7;  
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(162, 162, 162, 0.6);
     border: 1px solid black;
+*/
+    opacity: .5;  
 }
 
 .sportGif h2 {
@@ -89,15 +96,4 @@
 
 }
 
-.sportGif img {
-/*  border-radius: 15px 50px;
-*/}
-
-.userGuide {
-    background-color: ;
-    font-family: 'Noto Sans', sans-serif;
-    font-weight: 900;
-    color: #efefef;
-    font-size: 52px;
-}
 
