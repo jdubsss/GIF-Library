@@ -32,7 +32,7 @@ function renderButtons() {
 }
 
 
-// A function? for the user  to add additional sports to the array
+// A function for the user  to add additional sports to the array
 $("#add-sport").on("click", function(event) {
   event.preventDefault();
 
@@ -44,7 +44,7 @@ $("#add-sport").on("click", function(event) {
   renderButtons();
 });
 
-// getSportGif will fetch sport Gifs from the Giphy API
+// getSportGif will get sport Gifs from the Giphy API
 function getSportGif() {
 
   $('.userGuide').hide(); //this hides the welcome message to a user when the click a button
@@ -54,7 +54,7 @@ function getSportGif() {
 
   // build the Giphy URL
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sportName + 
-                 "&rating=pg-13&limit=10&api_key=dc6zaTOxFJmzC";
+                 "&rating=G&limit=10&api_key=17fc47eaba4b409690e2b088080bb877";
 
   //  AJAX function to link to the Giphy API
   $.ajax({
