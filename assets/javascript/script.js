@@ -50,13 +50,14 @@ $(document).ready(function() {
 
   // A function for the user  to add additional sports to the array
   $("#add-sport").on("click", function(event) {
-    // event.preventDefault();
+
     var sport = $("#sport-input").val();
     // console.log(sport);
     topics.push(sport);
     // console.log(topics);
     $("#sport-input").val("");
     renderButtons();
+  
   });
 
 

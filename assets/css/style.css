@@ -47,12 +47,21 @@
   margin: 5px;
 }
 
+.btn-info:hover, .btn-info:active, .btn-info:focus {
+  background-color: #000;
+  border-color: #000;
+  color: white;
+  margin: 5px;
+  box-shadow: none;
+  outline: none;
+}
+
 #sport-form {
   padding: 10px;
 }
 
 .form-control {
-  width: 200px;
+  width: 100%;
   margin: 5px;
   border-radius: 1px;
 }
