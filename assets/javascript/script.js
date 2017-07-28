@@ -35,7 +35,6 @@ $(document).ready(function() {
   // function to display the sport buttons for all sports within the topics array.
   function renderButtons() {
     $("#buttonPanel").empty(); //if i dont have this the array doubles each time i add a button
-
     // Loop through the array of sports
     for (var i = 0; i < topics.length; i++) {
       // generate a button for each sport in the array
@@ -43,22 +42,20 @@ $(document).ready(function() {
       button.addClass("btn btn-info");
       button.attr("data-sport", topics[i]);
       button.text(topics[i]);
-
       // Add the button to the HTML. use the append so it adds to the END of the list
       $("#buttonPanel").append(button);
+      // console.log(topics);
     }
   }
 
-
   // A function for the user  to add additional sports to the array
   $("#add-sport").on("click", function(event) {
-    event.preventDefault();
-
-    var sport = $("#sport-input").val();  //.trim()
-
+    // event.preventDefault();
+    var sport = $("#sport-input").val();
+    // console.log(sport);
     topics.push(sport);
+    // console.log(topics);
     $("#sport-input").val("");
-
     renderButtons();
   });
 
@@ -66,16 +63,12 @@ $(document).ready(function() {
 
   // crete a function to retrieve sport Gifs from the Giphy API
   function getSportGif() {
-
     $('.userGuide').hide(); //this hides the welcome message to a user when the click a button
-
-
     var sportName = $(this).attr("data-sport");
 
     // build the Giphy URL
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + sportName + 
                    "&rating=G&limit=10&api_key=17fc47eaba4b409690e2b088080bb877";
-
     //  AJAX function to link to the Giphy API
     $.ajax({
       method: "GET",
@@ -83,23 +76,19 @@ $(document).ready(function() {
     })
     .done(function( result ) {
       var dataArray = result.data; //stores  resutsl data into a variable to be used later
-
       // Create and display div elements for each of the returned Gifs. div first, then rating of GIF and then the GIF
       $("#gifPanel").empty();
       for (var i = 0; i < dataArray.length; i++) {
         var newDiv = $("<div>");
         newDiv.addClass("sportGif");
-
         var newRating = $("<h2>").html("Rating: " + dataArray[i].rating);
         newDiv.append(newRating);
-
         var newImg = $("<img>");
         newImg.attr("src", dataArray[i].images.fixed_height_still.url); //start on pause state
         newImg.attr("data-still", dataArray[i].images.fixed_height_still.url); //paused state
         newImg.attr("data-animate", dataArray[i].images.fixed_height.url); //play state
         newImg.attr("data-state", "still");
         newDiv.append(newImg);
-
         // prepend the new Gifs to the gifPanel...but its not prepending....but the app still works though
         $("#gifPanel").prepend(newDiv);
       }
@@ -109,8 +98,6 @@ $(document).ready(function() {
   // create a function to play a still Gif and stop a moving Gif
   function animateSportGif() {
     var state = $(this).find("img").attr("data-state");
-
-
     if (state === "still") {
         $(this).find("img").attr("src", $(this).find("img").attr("data-animate"));
         $(this).find("img").attr("data-state", "animate");
@@ -127,7 +114,7 @@ $(document).ready(function() {
   //  event for sport buttons to retrieve appropriate Gifs
     // $('.btn').on('click', getSportGif());
 
-  $(document).on("click", ".btn", getSportGif);
+  $(document).on("click", ".btn-info", getSportGif);
 
   // event  for the sport Gifs to make the image animate and stop
     // $('.sportGif').on('click', animateSportGif());
